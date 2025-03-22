@@ -13,12 +13,12 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Your awesome title
-email: your-email@example.com
+title: ABejeck's thoughts
+email: allisonbejeck@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Hi and welcome to my blog! My name is Allison Bejeck and I'm an undergraduate Computer Science student at the University of Maryland. 
+  I created this blog to share topics in CS that I find interesting-whether it's industry trends, fundamental skills, or cybersecurity.
+  My goal is to make these topics engaging and accessible, and I hope you find something useful or thought-provoking along the way!
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
@@ -26,9 +26,10 @@ github_username:  jekyll
 
 # Build settings
 markdown: kramdown
-theme: minima
+remote_theme: pages-themes/hacker@v0.2.0 
 plugins:
   - jekyll-feed
+  - jekyll-remote-theme
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
