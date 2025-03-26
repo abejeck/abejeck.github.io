@@ -15,14 +15,12 @@
 # in the templates via {{ site.myvariable }}.
 title: ABejeck's thoughts
 email: allisonbejeck@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Hi and welcome to my blog! My name is Allison Bejeck and I'm an undergraduate Computer Science student at the University of Maryland. 
-  I created this blog to share topics in CS that I find interesting-whether it's industry trends, fundamental skills, or cybersecurity.
-  My goal is to make these topics engaging and accessible, and I hope you find something useful or thought-provoking along the way!
+description: > 
+  My thoughts on industry trends, fundamental skills, or cybersecurity.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
-github_username:  jekyll
+github_username:  abejeck
 
 # Build settings
 markdown: kramdown
