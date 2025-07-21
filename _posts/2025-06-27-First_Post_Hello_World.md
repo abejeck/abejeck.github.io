@@ -2,6 +2,9 @@
 layout: post
 title:  "First Post - Hello World!"
 date:   2025-06-27 14:17:01 -0400
+categories: Insights
+permalink: /:categories/:day/:month/:year/:title.html
+tag: post_url
 ---
 
 ## Just get started! 
@@ -25,3 +28,4 @@ The developer world can be daunting. There are a lot of smart people and as a be
 I want to use this blog as a place to show that becoming a "genius" or a good developer is a constant journey! I encourage you to follow and join me! 
 
 So, that being said...**Hello World**! First post of many completed! 
+
