@@ -1,0 +1,109 @@
+---
+layout: post
+title:  "Shells"
+date:   2025-07-13 14:17:01 -0400
+categories: Programmer FundamentalS
+tag: post_url
+---
+
+## What is a shell? 
+
+A shell is both a tool and a command interpreter language that is used to interact with an Operating System, or OS. The shell acts as an interpreter and takes in the commands from the user, then translates it into machine code, which is then sent to the OS to perform the desired task. There are many ways to use shells, and there are different types of shells, which I will talk about next.  
+
+> Some examples of an OS include: Ubuntu, Linux, MacOS, Microsoft Windows
+
+## Types of shells
+
+Some commonly used shells are: 
+- Bourne-again Shell, Bash: Common default on many Unix-like systems
+- Z Shell, Zsh: Known for its advanced customization options
+- Korn Shell, Ksh: Has fast perfromance and does well with scripting 
+
+## How to use shells
+
+The CLI shell is your first tool to grab when trying to solve a problem. By using various commands, you can get access to files, modify them, run tests, and debug. You can also manage files/directories and write scripts to automate tasks. 
+
+Example: If I had a log file, `Test_Results.log`, that had test results and I wanted to see the tests
+that failed, I woud write: 
+```
+grep "Failed" Test_Results.log
+```
+The output from this command would then show the tests within the log file that failed. 
+
+>Another option is to write a shell script in a text file and execute on the command line. A shell script
+>is a file that contains a sequence of commands. This is great for automation.
+
+Example of using a shell script:
+
+1. Create the script file 
+```
+touch example.sh 
+```
+2. Open the file, and add the shebang line:
+```
+#!bin/bash 
+```
+this specifies which interpreter to use 
+3. Write your script! I put some basic examples below -- try it out
+3. Grant executable permissions(x) to the file using the chmod command:
+```
+chmod +x example.sh
+```
+4. Execute the script:
+```
+./example.sh
+```
+ - ./ indicates the script is located in the current directory
+    * Can also run the script by explicity calling the interpreter: `bash example.sh`
+
+Here are some examples scripts I have written:
+
+```bash
+#!/bin/bash
+echo "Hello world from my script!"
+ls -l
+```
+
+```bash
+#!/bin/bash
+echo "Hello world!!!"
+echo "Please enter name:"
+read name
+echo "Hello $name!!!"
+ls -l
+```
+
+Aside from a shell script, using the command line directly is helpful for dealing with directories and files, as well as any modifications that are made ad-hoc and can't be automated. 
+Below are some popular commands that are useful to know.
+### Useful Command line commands 
+
+| Command       | What it does     |
+|:-------------|:------------------|
+| `pwd`                                                          | Find the current path you are located on |
+| `mkdir <directory_name>`                                       | Make a directory  |
+| `touch <file_name>`                                            | Make a file  |
+| `ls -a`                                                        | List all files, including hidden files  | 
+| `ls -lt`                                                       | List files by date modified|
+| `cp <path_to_the_file_to_copy> <path_to_file_for_new_location>`| copy a file  |
+| `mv <path_to_the_file_to_move> <path_to_file_for_new_location>`| move a file |
+| `cp -r <source_directory> <target_directory>`                  | copy a directory and its files and subdirectories | 
+| `command >> <output_file.txt>`                                 | Direct the output to a new file  |
+| `command >  <output_file.txt>`                                 | Direct output to an exisitng file (will over write what was there before)    |
+| `<command> | tee <optional_flags> <files_for_output_to_be_written>`  | The "tee" command: Allows for output to be showed in the console while also writing to files(s) | 
+| `rmdir <directory_name>`                                        | Remove an empty directory  |
+| `rm -rf <directory_name>`                                       | Remove a non-empty directory and all its subdirectories and files without confirmation |
+| `$ECHO shell`                                                   | See the current shell environment variable | 
+
+### Flag tags:
+Flag tags, or options can be used to modify the output or behavior of the command line program
+
+`Find avaliable flags using the command "man ls"`
+
+* -a: include directory entries whose names begin with a ('.')
+* -t: displays complete time information for the file - including month, day, hour, minute, second
+* -l: list files in the long format, which means 
+> Flag tags are also called options
+
+Sources: 
+* [IBM - shells](https://www.ibm.com/docs/en/aix/7.3.0?topic=administration-operating-system-shells)
+* [IBM - OS](https://www.ibm.com/think/topics/operating-systems)
