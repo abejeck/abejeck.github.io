@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tree Traversal Visualizer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #111;
+      color: white;
+    }
+
+    #tree-container {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      margin-top: 40px;
+    }
+
+    .node {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #333;
+      border: 2px solid #999;
+      color: white;
+      line-height: 40px;
+      text-align: center;
+      transition: background 0.3s, transform 0.3s;
+      z-index: 1;
+    }
+
+    .line {
+      stroke: white;
+      stroke-width: 2;
+      z-index: 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    #output {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Interactive BFS & DFS Tree Traversal</h1>
+  <div>
+    <button onclick="runDFS()">Run DFS</button>
+    <button onclick="runBFS()">Run BFS</button>
+  </div>
+
+  <div id="tree-container">
+    <svg id="svg-lines" width="100%" height="100%" style="position:absolute; top:0; left:0;"></svg>
+  </div>
+
+  <div id="output"></div>
+
+  <script>
+    class Node {
+      constructor(data, x, y, left = null, right = null) {
+        this.data = data;
+        this.left = left;
+        this.right = right;
+        this.x = x;
+        this.y = y;
+      }
+    }
+
+    // Colors for each step
+    const colors = ["#00adb5", "#0077b6", "#4b6587", "#5f27cd", "#f368e0", "#ff6b6b", "#ffa502", "#1dd1a1", "#10ac84"];
+
+    // Define the tree with positions
+    const root = new Node("A", 500, 50,
+      new Node("B", 300, 150,
+        new Node("D", 200, 250),
+        new Node("E", 400, 250)
+      ),
+      new Node("C", 700, 150,
+        null,
+        new Node("F", 800, 250)
+      )
+    );
+
+    // Render the tree and connections
+    function renderTree(node, container, svg) {
+      if (!node) return;
+
+      // Create the node element
+      const nodeDiv = document.createElement("div");
+      nodeDiv.className = "node";
+      nodeDiv.id = `node-${node.data}`;
+      nodeDiv.style.left = `${node.x}px`;
+      nodeDiv.style.top = `${node.y}px`;
+      nodeDiv.textContent = node.data;
+      container.appendChild(nodeDiv);
+
+      // Draw lines to children
+      if (node.left) {
+        drawLine(svg, node, node.left);
+        renderTree(node.left, container, svg);
+      }
+      if (node.right) {
+        drawLine(svg, node, node.right);
+        renderTree(node.right, container, svg);
+      }
+    }
+
+    function drawLine(svg, parent, child) {
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("x1", parent.x + 20);
+      line.setAttribute("y1", parent.y + 20);
+      line.setAttribute("x2", child.x + 20);
+      line.setAttribute("y2", child.y + 20);
+      line.classList.add("line");
+      svg.appendChild(line);
+    }
+
+    function resetTree() {
+      const nodes = document.querySelectorAll(".node");
+      nodes.forEach(node => {
+        node.style.background = "#333";
+        node.style.transform = "scale(1)";
+      });
+      document.getElementById("output").textContent = "";
+    }
+
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function runDFS() {
+      resetTree();
+      const stack = [root];
+      const visited = new Set();
+      const order = [];
+
+      let colorIndex = 0;
+      while (stack.length > 0) {
+        const node = stack.pop();
+        if (!visited.has(node)) {
+          visited.add(node);
+          order.push(node.data);
+          const el = document.getElementById(`node-${node.data}`);
+          el.style.background = colors[colorIndex % colors.length];
+          el.style.transform = "scale(1.2)";
+          colorIndex++;
+          await delay(500);
+          el.style.transform = "scale(1)";
+          if (node.right) stack.push(node.right);
+          if (node.left) stack.push(node.left);
+        }
+      }
+      document.getElementById("output").textContent = "DFS Order: " + order.join(" → ");
+    }
+
+    async function runBFS() {
+      resetTree();
+      const queue = [root];
+      const visited = new Set();
+      const order = [];
+
+      let colorIndex = 0;
+      while (queue.length > 0) {
+        const node = queue.shift();
+        if (!visited.has(node)) {
+          visited.add(node);
+          order.push(node.data);
+          const el = document.getElementById(`node-${node.data}`);
+          el.style.background = colors[colorIndex % colors.length];
+          el.style.transform = "scale(1.2)";
+          colorIndex++;
+          await delay(500);
+          el.style.transform = "scale(1)";
+          if (node.left) queue.push(node.left);
+          if (node.right) queue.push(node.right);
+        }
+      }
+      document.getElementById("output").textContent = "BFS Order: " + order.join(" → ");
+    }
+
+    // Initial render
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("tree-container");
+      const svg = document.getElementById("svg-lines");
+      renderTree(root, container, svg);
+    });
+  </script>
+</body>
+</html>
